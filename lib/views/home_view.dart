@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/widgets/no_weather_body.dart';
+import 'package:weather_app/widgets/weather_info_body.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class HomeView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Weather App'),
       ),
-      body: const NoWeatherBody(),
+      body: const WeatherInfoBody(),
     );
   }
 }

@@ -27,7 +27,7 @@ class WeatherInfoBody extends StatelessWidget {
             height: 32,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Image.asset(
                 'assets/images/cloudy.png',
@@ -42,13 +42,13 @@ class WeatherInfoBody extends StatelessWidget {
               const Column(
                 children: [
                   Text(
-                    'Maxtemp: 24',
+                    'MaxTemp: 24',
                     style: TextStyle(
                       fontSize: 16,
                     ),
                   ),
                   Text(
-                    'Mintemp: 16',
+                    'MinTemp: 16',
                     style: TextStyle(
                       fontSize: 16,
                     ),
@@ -61,7 +61,7 @@ class WeatherInfoBody extends StatelessWidget {
             height: 32,
           ),
           const Text(
-            'Ligh Rain',
+            'Light Rain',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 32,
