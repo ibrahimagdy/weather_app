@@ -17,7 +17,11 @@ class ApiManger {
       WeatherModel weatherModel = WeatherModel.fromJson(response.data);
       return weatherModel;
     } on DioException catch (e) {
-      return null;
+      final String errorMessage = e.response?.data['error']['message'] ??
+          'oops there was an error, please try again later';
+      throw Exception(errorMessage);
+    } catch (e) {
+      throw Exception('oops there was an error, please try again later');
     }
   }
 }
