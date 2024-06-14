@@ -8,10 +8,11 @@ import '../../../core/network_layer/api_manger.dart';
 class GetWeatherCubit extends Cubit<WeatherStates> {
   GetWeatherCubit() : super(WeatherInitialState());
 
+  WeatherModel? weatherModel;
+
   getWeather({required String cityName}) async {
     try {
-      WeatherModel? weatherModel =
-          await ApiManger(Dio()).getWeather(cityName: cityName);
+      weatherModel = await ApiManger(Dio()).getWeather(cityName: cityName);
       emit(WeatherLoadedSuccessState(weatherModel!));
     } catch (e) {
       emit(WeatherFailureState());
