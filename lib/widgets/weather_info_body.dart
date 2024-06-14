@@ -43,6 +43,7 @@ class WeatherInfoBody extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.network(
                   "https:${weather.image}",
