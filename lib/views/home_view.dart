@@ -14,7 +14,13 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Weather App'),
+        title: const Text(
+          'Weather App',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () {
@@ -26,21 +32,30 @@ class HomeView extends StatelessWidget {
                 ),
               );
             },
-            icon: const Icon(Icons.search),
+            icon: const Icon(
+              Icons.search,
+              color: Colors.white,
+              size: 28,
+            ),
           ),
         ],
       ),
       body: BlocBuilder<GetWeatherCubit, WeatherStates>(
         builder: (context, state) {
-          if (state is WeatherLoadedSuccessState) {
+          if (state is WeatherSuccessState) {
             return WeatherInfoBody(
               weather: state.weatherModel,
             );
           } else if (state is WeatherInitialState) {
             return const NoWeatherBody();
+          } else if (state is WeatherLoadedState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           } else {
             return const Center(
-              child: Text('Oops, There was an error'),
+              child:
+                  Text('Oops, There was an error, try to enter correct city'),
             );
           }
         },
