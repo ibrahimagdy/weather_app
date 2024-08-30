@@ -4,10 +4,12 @@ class WeatherStates {}
 
 class WeatherInitialState extends WeatherStates {}
 
-class WeatherLoadedSuccessState extends WeatherStates {
+class WeatherLoadedState extends WeatherStates {}
+
+class WeatherSuccessState extends WeatherStates {
   final WeatherModel weatherModel;
 
-  WeatherLoadedSuccessState(this.weatherModel);
+  WeatherSuccessState(this.weatherModel);
 }
 
 class WeatherFailureState extends WeatherStates {}

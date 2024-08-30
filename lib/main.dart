@@ -36,7 +36,7 @@ class WeatherApp extends StatelessWidget {
 
 Color getWeatherColor(String? condition) {
   if (condition == null) {
-    return Colors.orange;
+    return Colors.blue;
   }
   switch (condition) {
     case "Sunny":
