@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/view_model/cubits/get_weather_cubit/get_weather_cubit.dart';
-import 'package:weather_app/view_model/cubits/get_weather_cubit/weather_states.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_app/view_model/providers/theme_provider.dart';
+import 'package:weather_app/view_model/providers/weather_provider.dart';
 import 'package:weather_app/views/home_view.dart';
 
 void main() {
@@ -13,17 +13,33 @@ class WeatherApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GetWeatherCubit(),
-      child: BlocBuilder<GetWeatherCubit, WeatherStates>(
-        builder: (context, state) {
-          final weatherCubit = BlocProvider.of<GetWeatherCubit>(context);
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => WeatherProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
           return MaterialApp(
-            theme: ThemeData(
-              appBarTheme: AppBarTheme(
-                color: getWeatherColor(
-                    weatherCubit.weatherModel?.weatherCondition),
+            title: 'Weather App',
+            themeMode: themeProvider.themeMode,
+            theme: ThemeData.light(
+              useMaterial3: true,
+            ).copyWith(
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
               ),
+              scaffoldBackgroundColor: Colors.grey[50],
+            ),
+            darkTheme: ThemeData.dark(
+              useMaterial3: true,
+            ).copyWith(
+              appBarTheme: AppBarTheme(
+                backgroundColor: Colors.blue[800],
+                foregroundColor: Colors.white,
+              ),
+              scaffoldBackgroundColor: Colors.grey[900],
             ),
             debugShowCheckedModeBanner: false,
             home: const HomeView(),
@@ -31,42 +47,5 @@ class WeatherApp extends StatelessWidget {
         },
       ),
     );
-  }
-}
-
-Color getWeatherColor(String? condition) {
-  if (condition == null) {
-    return Colors.blue;
-  }
-  switch (condition) {
-    case "Sunny":
-      return Colors.orange;
-    case "Partly cloudy":
-      return Colors.blueGrey;
-    case "Cloudy":
-      return Colors.grey;
-    case "Overcast":
-      return Colors.blueGrey;
-    case "Mist":
-      return Colors.lightBlue;
-    case "Patchy rain possible":
-    case "Light rain":
-    case "Moderate rain":
-    case "Heavy rain":
-      return Colors.blue;
-    case "Patchy snow possible":
-    case "Light snow":
-    case "Moderate snow":
-    case "Heavy snow":
-      return Colors.lightBlueAccent;
-    case "Thundery outbreaks possible":
-    case "Moderate or heavy rain with thunder":
-    case "Patchy light rain with thunder":
-      return Colors.deepPurple;
-    case "Fog":
-    case "Freezing fog":
-      return Colors.grey;
-    default:
-      return Colors.blueGrey;
   }
 }
