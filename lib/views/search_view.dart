@@ -46,18 +46,21 @@ class _SearchViewState extends State<SearchView> {
               },
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () async {
-                  if (_controller.text.trim().isNotEmpty) {
-                    await context
-                        .read<WeatherProvider>()
-                        .getWeatherByCity(_controller.text.trim());
-                    if (context.mounted) Navigator.pop(context);
-                  }
-                },
-                child: const Text('Search Weather'),
+            ElevatedButton(
+              onPressed: () async {
+                if (_controller.text.trim().isNotEmpty) {
+                  await context
+                      .read<WeatherProvider>()
+                      .getWeatherByCity(_controller.text.trim());
+                  if (context.mounted) Navigator.pop(context);
+                }
+              },
+              child: const Text(
+                'Search Weather',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.blue,
+                ),
               ),
             ),
           ],
